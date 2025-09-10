@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Premium cars">
+        <div class="slds-p-around_medium">
+            <template lwc:if={isArray}>
+                <template for:each={cars} for:item="carItem">
+                    <div key={carId}>
+                        {carItem}
+                    </div>
+                </template>
+            </template>
+            <template lwc:else>
+                <div class="carColor">
+                    <b>Empty Array</b>
+                </div>
+            </template>
+            <div class="slds-p-around_xxx-small">
+                <lightning-input type="text" label="Enter Car Names" onchange={handleEnterCar}></lightning-input>                      
+                <lightning-button variant="Brand" label="ADD" onclick={handleAdd}></lightning-button>
+             </div>             
+        </div>
+    </lightning-card>
+</template>
