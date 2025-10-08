@@ -1,4 +1,22 @@
 {
+  "name": "simple-js-program",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A minimal Node.js CLI that prints a greeting.",
+  "bin": {
+    "greet": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "greet": "node index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT"
+}
+
+{
   "name": "salesforce-app",
   "private": true,
   "version": "1.0.0",

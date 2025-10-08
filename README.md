@@ -1,3 +1,26 @@
+## Simple JS Program
+
+A minimal Node.js CLI that prints a greeting.
+
+### Run
+
+- **With Node**:
+```bash
+node index.js
+node index.js Alice
+node index.js Alice --upper
+```
+
+- **With npm**:
+```bash
+npm start
+```
+
+### Options
+
+- **name**: First positional argument; defaults to "World".
+- **--upper, -u**: Uppercases the output.
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
