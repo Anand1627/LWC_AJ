@@ -1,0 +1,157 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close" title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium slds-hyphenate">Order Details</h2>
+            </header>
+            
+            <div class="slds-modal__content slds-p-around_medium">
+                <template if:true={isLoading}>
+                    <div class="slds-text-align_center">
+                        <lightning-spinner alternative-text="Loading order details..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+                
+                <template if:false={isLoading}>
+                    <!-- Order Information -->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <dl class="slds-list_horizontal slds-wrap">
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Order Number:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Order_Number__c}</dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Customer:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Customer__r.Name}</dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Status:</dt>
+                                <dd class="slds-item_detail slds-truncate">
+                                    <span class="slds-badge slds-badge_{orderData.Status__c.toLowerCase()}">{orderData.Status__c}</span>
+                                </dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Order Date:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Order_Date__c}</dd>
+                            </dl>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <dl class="slds-list_horizontal slds-wrap">
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Total Amount:</dt>
+                                <dd class="slds-item_detail slds-truncate slds-text-heading_medium">${orderData.Total_Amount__c}</dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Priority:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Priority__c}</dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Expected Delivery:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Expected_Delivery_Date__c}</dd>
+                                
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Tracking Number:</dt>
+                                <dd class="slds-item_detail slds-truncate">{orderData.Tracking_Number__c}</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Order Items -->
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small">Order Items</span>
+                        </h3>
+                        <div class="slds-section__content">
+                            <div class="slds-scrollable_x">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Unit Price</th>
+                                            <th scope="col">Total Price</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template if:true={orderItems.data}>
+                                            <template for:each={orderItems.data} for:item="item">
+                                                <tr key={item.Id}>
+                                                    <td data-label="Product">{item.Product__r.Name}</td>
+                                                    <td data-label="Quantity">{item.Quantity__c}</td>
+                                                    <td data-label="Unit Price">${item.Unit_Price__c}</td>
+                                                    <td data-label="Total Price">${item.Total_Price__c}</td>
+                                                    <td data-label="Actions">
+                                                        <lightning-button-group>
+                                                            <lightning-button-icon
+                                                                icon-name="utility:edit"
+                                                                variant="bare"
+                                                                onclick={handleEditItem}
+                                                                data-item-id={item.Id}
+                                                                title="Edit Item">
+                                                            </lightning-button-icon>
+                                                            <lightning-button-icon
+                                                                icon-name="utility:delete"
+                                                                variant="bare"
+                                                                onclick={handleDeleteItem}
+                                                                data-item-id={item.Id}
+                                                                title="Delete Item">
+                                                            </lightning-button-icon>
+                                                        </lightning-button-group>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </template>
+                                        <template if:true={orderItems.error}>
+                                            <tr>
+                                                <td colspan="5" class="slds-text-align_center slds-text-color_error">
+                                                    Error loading order items: {orderItems.error}
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="slds-m-top_medium">
+                                <lightning-button
+                                    label="Add Item"
+                                    variant="brand"
+                                    onclick={handleAddItem}
+                                    icon-name="utility:add">
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Notes -->
+                    <template if:true={orderData.Notes__c}>
+                        <div class="slds-section slds-is-open slds-m-top_large">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small">Notes</span>
+                            </h3>
+                            <div class="slds-section__content">
+                                <p class="slds-text-body_regular">{orderData.Notes__c}</p>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </div>
+            
+            <footer class="slds-modal__footer">
+                <lightning-button-group>
+                    <lightning-button
+                        label="Edit Order"
+                        variant="brand"
+                        onclick={handleEditOrder}
+                        icon-name="utility:edit">
+                    </lightning-button>
+                    <lightning-button
+                        label="Close"
+                        variant="neutral"
+                        onclick={handleClose}>
+                    </lightning-button>
+                </lightning-button-group>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

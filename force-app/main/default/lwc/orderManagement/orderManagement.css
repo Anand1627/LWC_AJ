@@ -1,0 +1,216 @@
+.slds-badge_draft {
+    background-color: #f3f3f3;
+    color: #706e6b;
+}
+
+.slds-badge_pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.slds-badge_confirmed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.slds-badge_processing {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.slds-badge_shipped {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.slds-badge_delivered {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.slds-badge_cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.slds-text-link {
+    color: #0176d3;
+    text-decoration: none;
+}
+
+.slds-text-link:hover {
+    text-decoration: underline;
+}
+
+.slds-card {
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.slds-card_boundary {
+    border: 1px solid #dddbda;
+}
+
+.slds-card__body_inner {
+    padding: 1rem;
+}
+
+.slds-text-color_success {
+    color: #04844b;
+}
+
+.slds-text-color_error {
+    color: #c23934;
+}
+
+.slds-scrollable_x {
+    overflow-x: auto;
+}
+
+.slds-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.slds-table th,
+.slds-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #dddbda;
+}
+
+.slds-table th {
+    background-color: #f3f3f3;
+    font-weight: 700;
+}
+
+.slds-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.slds-button-group {
+    display: inline-flex;
+}
+
+.slds-button-group .slds-button {
+    border-radius: 0;
+}
+
+.slds-button-group .slds-button:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.slds-button-group .slds-button:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.slds-button-group .slds-button:not(:last-child) {
+    border-right: 1px solid #dddbda;
+}
+
+.slds-grid_vertical-align-center {
+    align-items: center;
+}
+
+.slds-has-flexi-truncate {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.slds-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.slds-button_icon-bare {
+    background: transparent;
+    border: none;
+    color: #706e6b;
+}
+
+.slds-button_icon-bare:hover {
+    background-color: #f3f3f3;
+    color: #0176d3;
+}
+
+.slds-button_icon-small {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.slds-is-sortable {
+    cursor: pointer;
+}
+
+.slds-is-sortable:hover {
+    background-color: #f8f9fa;
+}
+
+.slds-text-body_small {
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.slds-text-heading_large {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.slds-text-body_regular {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.slds-text-align_center {
+    text-align: center;
+}
+
+.slds-m-bottom_medium {
+    margin-bottom: 1rem;
+}
+
+.slds-m-top_medium {
+    margin-top: 1rem;
+}
+
+.slds-p-around_medium {
+    padding: 1rem;
+}
+
+.slds-gutters > * {
+    padding: 0.5rem;
+}
+
+.slds-wrap {
+    flex-wrap: wrap;
+}
+
+.slds-size_1-of-1 {
+    width: 100%;
+}
+
+@media (min-width: 48rem) {
+    .slds-medium-size_1-of-2 {
+        width: 50%;
+    }
+    
+    .slds-medium-size_1-of-3 {
+        width: 33.3333333333%;
+    }
+    
+    .slds-medium-size_1-of-4 {
+        width: 25%;
+    }
+}
+
+@media (min-width: 30rem) {
+    .slds-small-size_1-of-2 {
+        width: 50%;
+    }
+}

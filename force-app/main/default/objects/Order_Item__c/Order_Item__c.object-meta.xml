@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Order Item</label>
+    <pluralLabel>Order Items</pluralLabel>
+    <nameField>
+        <displayFormat>OI-{00000}</displayFormat>
+        <label>Order Item Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to manage individual items within an order</description>
+    <fields>
+        <fullName>Order__c</fullName>
+        <label>Order</label>
+        <type>MasterDetail</type>
+        <referenceTo>Order__c</referenceTo>
+        <relationshipName>Order_Items</relationshipName>
+        <required>true</required>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <label>Product</label>
+        <type>Lookup</type>
+        <referenceTo>Product2</referenceTo>
+        <relationshipName>Order_Items</relationshipName>
+        <required>true</required>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <label>Quantity</label>
+        <type>Number</type>
+        <precision>18</precision>
+        <scale>2</scale>
+        <required>true</required>
+    </fields>
+    <fields>
+        <fullName>Unit_Price__c</fullName>
+        <label>Unit Price</label>
+        <type>Currency</type>
+        <precision>18</precision>
+        <scale>2</scale>
+        <required>true</required>
+    </fields>
+    <fields>
+        <fullName>Total_Price__c</fullName>
+        <label>Total Price</label>
+        <type>Currency</type>
+        <precision>18</precision>
+        <scale>2</scale>
+        <formula>Quantity__c * Unit_Price__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>
+    <fields>
+        <fullName>Discount__c</fullName>
+        <label>Discount %</label>
+        <type>Percent</type>
+        <precision>5</precision>
+        <scale>2</scale>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <label>Notes</label>
+        <type>LongTextArea</type>
+        <length>32768</length>
+    </fields>
+</CustomObject>

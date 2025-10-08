@@ -1,0 +1,65 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close" title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium slds-hyphenate">Create New Order</h2>
+            </header>
+            
+            <div class="slds-modal__content slds-p-around_medium">
+                <lightning-record-edit-form object-api-name="Order__c" onsuccess={handleSuccess}>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Customer__c" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Status__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Order_Date__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Priority__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Expected_Delivery_Date__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input-field field-name="Tracking_Number__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-input-field field-name="Shipping_Address__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-input-field field-name="Billing_Address__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-input-field field-name="Notes__c"></lightning-input-field>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-m-top_large">
+                        <lightning-button-group>
+                            <lightning-button
+                                type="submit"
+                                label="Create Order"
+                                variant="brand"
+                                icon-name="utility:save">
+                            </lightning-button>
+                            <lightning-button
+                                type="button"
+                                label="Cancel"
+                                variant="neutral"
+                                onclick={handleClose}>
+                            </lightning-button>
+                        </lightning-button-group>
+                    </div>
+                </lightning-record-edit-form>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

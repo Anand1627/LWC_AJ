@@ -1,0 +1,188 @@
+<template>
+    <lightning-card title="Order Management System" icon-name="standard:orders">
+        <div class="slds-p-around_medium">
+            <!-- Search and Filter Section -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                        type="search"
+                        label="Search Orders"
+                        value={searchTerm}
+                        onchange={handleSearchChange}
+                        placeholder="Search by order number or customer">
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox
+                        name="statusFilter"
+                        label="Status Filter"
+                        value={statusFilter}
+                        placeholder="All Statuses"
+                        options={statusOptions}
+                        onchange={handleStatusChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-button-group>
+                        <lightning-button
+                            label="New Order"
+                            variant="brand"
+                            onclick={handleNewOrder}
+                            icon-name="utility:add">
+                        </lightning-button>
+                        <lightning-button
+                            label="Refresh"
+                            variant="neutral"
+                            onclick={handleRefresh}
+                            icon-name="utility:refresh">
+                        </lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+
+            <!-- Analytics Dashboard -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <template for:each={analyticsData} for:item="item">
+                    <div key={item.key} class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-4">
+                        <div class="slds-card slds-card_boundary">
+                            <div class="slds-card__body slds-card__body_inner">
+                                <div class="slds-text-align_center">
+                                    <h3 class="slds-text-heading_large slds-text-color_success">{item.value}</h3>
+                                    <p class="slds-text-body_regular">{item.key}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="slds-scrollable_x">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="slds-is-sortable" scope="col">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Order Number">Order Number</span>
+                                    <button class="slds-button slds-button_icon slds-button_icon-bare slds-button_icon-small" onclick={handleSort} data-field="Order_Number__c">
+                                        <lightning-icon icon-name="utility:arrowdown" size="x-small"></lightning-icon>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="slds-is-sortable" scope="col">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Customer">Customer</span>
+                                    <button class="slds-button slds-button_icon slds-button_icon-bare slds-button_icon-small" onclick={handleSort} data-field="Customer__r.Name">
+                                        <lightning-icon icon-name="utility:arrowdown" size="x-small"></lightning-icon>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="slds-is-sortable" scope="col">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Status">Status</span>
+                                    <button class="slds-button slds-button_icon slds-button_icon-bare slds-button_icon-small" onclick={handleSort} data-field="Status__c">
+                                        <lightning-icon icon-name="utility:arrowdown" size="x-small"></lightning-icon>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="slds-is-sortable" scope="col">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Total Amount">Total Amount</span>
+                                    <button class="slds-button slds-button_icon slds-button_icon-bare slds-button_icon-small" onclick={handleSort} data-field="Total_Amount__c">
+                                        <lightning-icon icon-name="utility:arrowdown" size="x-small"></lightning-icon>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="slds-is-sortable" scope="col">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Order Date">Order Date</span>
+                                    <button class="slds-button slds-button_icon slds-button_icon-bare slds-button_icon-small" onclick={handleSort} data-field="Order_Date__c">
+                                        <lightning-icon icon-name="utility:arrowdown" size="x-small"></lightning-icon>
+                                    </button>
+                                </div>
+                            </th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={orders.data}>
+                            <template for:each={orders.data} for:item="order">
+                                <tr key={order.Id}>
+                                    <td data-label="Order Number">
+                                        <a href="#" onclick={handleOrderClick} data-order-id={order.Id} class="slds-text-link">
+                                            {order.Order_Number__c}
+                                        </a>
+                                    </td>
+                                    <td data-label="Customer">{order.Customer__r.Name}</td>
+                                    <td data-label="Status">
+                                        <span class="slds-badge slds-badge_{order.Status__c.toLowerCase()}">{order.Status__c}</span>
+                                    </td>
+                                    <td data-label="Total Amount">${order.Total_Amount__c}</td>
+                                    <td data-label="Order Date">{order.Order_Date__c}</td>
+                                    <td data-label="Actions">
+                                        <lightning-button-group>
+                                            <lightning-button-icon
+                                                icon-name="utility:edit"
+                                                variant="bare"
+                                                onclick={handleEditOrder}
+                                                data-order-id={order.Id}
+                                                title="Edit Order">
+                                            </lightning-button-icon>
+                                            <lightning-button-icon
+                                                icon-name="utility:delete"
+                                                variant="bare"
+                                                onclick={handleDeleteOrder}
+                                                data-order-id={order.Id}
+                                                title="Delete Order">
+                                            </lightning-button-icon>
+                                        </lightning-button-group>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template if:true={orders.error}>
+                            <tr>
+                                <td colspan="6" class="slds-text-align_center slds-text-color_error">
+                                    Error loading orders: {orders.error}
+                                </td>
+                            </tr>
+                        </template>
+                        <template if:false={orders.data}>
+                            <tr>
+                                <td colspan="6" class="slds-text-align_center">
+                                    <lightning-spinner alternative-text="Loading orders..." size="small"></lightning-spinner>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-top_medium">
+                <div class="slds-col slds-grow">
+                    <p class="slds-text-body_small">
+                        Showing {orders.data ? orders.data.length : 0} orders
+                    </p>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Order Detail Modal -->
+    <template if:true={showOrderModal}>
+        <c-order-detail-modal
+            order-id={selectedOrderId}
+            onclose={handleCloseOrderModal}
+            onorderupdated={handleOrderUpdated}>
+        </c-order-detail-modal>
+    </template>
+
+    <!-- New Order Modal -->
+    <template if:true={showNewOrderModal}>
+        <c-new-order-modal
+            onclose={handleCloseNewOrderModal}
+            onordercreated={handleOrderCreated}>
+        </c-new-order-modal>
+    </template>
+</template>
