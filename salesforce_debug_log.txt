@@ -1,0 +1,19 @@
+64.0 APEX_CODE,FINEST;APEX_PROFILING,FINEST;CALLOUT,FINEST;DATA_ACCESS,FINER;DB,FINEST;NBA,FINE;SYSTEM,FINE;VALIDATION,INFO;VISUALFORCE,FINER;WAVE,FINEST;WORKFLOW,FINER
+12:32:31.0 (852863)|USER_INFO|[EXTERNAL]|005bh000007EQrF|salesforce.testmanagement@zeiss.com.int.sbo3.med.2|(GMT+02:00) Central European Summer Time (Europe/Berlin)|GMT+02:00
+12:32:31.0 (36822598)|FLOW_VALUE_ASSIGNMENT|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|_1__isVisible|true
+12:32:31.0 (36909380)|FLOW_VALUE_ASSIGNMENT|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|Map_Quote_to_Service_Contract|[ServiceContract (AccountId:001bh000009lfyfAAA, Ship_To__c:001bh000009I893AAC, Total_Discount_Amount__c:0.0, Business_Group__c:MED, Agreed_Item_Sum__c:null, Opportunity__c:null, ContactId:003bh00000RhaqJAAR, Name:Lakshmi120809, StartDate:Wed Aug 12 00:00:00 GMT 2026, Billing_Type__c:Periodic Payment, Exchange_Rate_Type__c:null, Quote__c:a1Abh0000027FE5EAM, PO_Date__c:2025-10-22, Total_Discount_Percentage__c:null, Tax_Value__c:null, SAP_Conditions__c:null, Customer_Price_Group__c:null, Distribution_Channel__c:20, Bill_To__c:001bh000009I893AAC, Payment_Terms__c:Z006, Billing_Date__c:null, Pricing_Date__c:2025-08-19, Additional_Discount_Amount__c:null, Customer_PO_Number__c:7957231759123, Net_Amount__c:null, Sales_Org__c:0302, Term:12.0, CurrencyIsoCode:GBP, EndDate:2027-08-11, Billing_Cycle__c:53, Payer__c:001bh000009lgwJAAQ, Pricebook2Id:01saa000000KzAbAAK, Price_List_Type__c:1M, CustomerDiscount__c:null)]
+12:32:31.0 (36918222)|FLOW_VALUE_ASSIGNMENT|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|_0__isVisible|true
+12:32:31.0 (191804211)|FLOW_ELEMENT_BEGIN|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|FlowDecision|Check_if_service_contract_start_date_is_a_previous_date
+12:32:31.0 (195104512)|FLOW_RULE_DETAIL|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|Not_Earlier_Date|true|false
+12:32:31.0 (195169948)|FLOW_VALUE_ASSIGNMENT|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|Not_Earlier_Date|true
+12:32:31.0 (195284905)|FLOW_ELEMENT_LIMIT_USAGE|52 ms CPU time, total 52 out of 15000
+12:32:31.0 (195298816)|FLOW_ELEMENT_END|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|FlowDecision|Check_if_service_contract_start_date_is_a_previous_date
+12:32:31.0 (195325084)|FLOW_ELEMENT_BEGIN|7705aa230f5303f9498e9d9ecdb199be38b164-51a7|FlowRecordCreate|Create_Service_Contract_record
+12:32:31.0 (196386327)|FLOW_BULK_ELEMENT_DETAIL|FlowRecordCreate|Create_Service_Contract_record|1
+12:32:31.0 (196408473)|LIMIT_USAGE|[EXTERNAL]|DML|1|150
+12:32:31.0 (196413533)|LIMIT_USAGE|[EXTERNAL]|DML_ROWS|1|10000
+12:32:31.221 (221803087)|CODE_UNIT_STARTED|[EXTERNAL]|Flow:ServiceContract
+12:32:31.224 (224658160)|FLOW_CREATE_INTERVIEW_BEGIN|00Dbh000001rE7V|3007Q000000y6vh|301bh00000I5EWG
+12:32:31.224 (224715601)|FLOW_CREATE_INTERVIEW_END|87458c8d3ea44b559e172315eb32199be1bdf22-21c5|Service Contract Fast Field Update
+12:32:31.225 (225307706)|FLOW_START_INTERVIEWS_BEGIN|1
+12:32:31.225 (225340937)|FLOW_START_INTERVIEW
