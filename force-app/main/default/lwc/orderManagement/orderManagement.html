@@ -1,0 +1,109 @@
+<template>
+    <lightning-card title="Order Management" icon-name="standard:orders">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button 
+                    label="New Order" 
+                    variant="brand" 
+                    onclick={handleNewOrder}
+                    icon-name="utility:add">
+                </lightning-button>
+                <lightning-button 
+                    label="Refresh" 
+                    onclick={handleRefresh}
+                    icon-name="utility:refresh">
+                </lightning-button>
+            </lightning-button-group>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                    <lightning-input
+                        type="search"
+                        label="Search Orders"
+                        placeholder="Search by order number or customer..."
+                        value={searchTerm}
+                        onchange={handleSearch}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                    <lightning-combobox
+                        label="Filter by Status"
+                        value={selectedStatus}
+                        options={statusOptions}
+                        onchange={handleStatusFilter}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                    <div class="slds-text-align_right slds-p-top_large">
+                        <span class="slds-text-body_small slds-text-color_weak">
+                            {orderCount} orders found
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Data Table -->
+        <template if:true={hasOrders}>
+            <lightning-datatable
+                key-field="id"
+                data={filteredOrders}
+                columns={columns}
+                onrowaction={handleRowAction}
+                onsort={handleSort}
+                sorted-by={sortBy}
+                sorted-direction={sortDirection}
+                hide-checkbox-column="true"
+                show-row-number-column="true">
+            </lightning-datatable>
+        </template>
+
+        <!-- No Orders Message -->
+        <template if:false={hasOrders}>
+            <div class="slds-text-align_center slds-p-around_large">
+                <lightning-icon 
+                    icon-name="standard:orders" 
+                    size="large" 
+                    class="slds-m-bottom_medium">
+                </lightning-icon>
+                <h3 class="slds-text-heading_medium slds-m-bottom_small">No Orders Found</h3>
+                <p class="slds-text-body_regular slds-text-color_weak">
+                    <template if:true={searchTerm}>
+                        No orders match your search criteria. Try adjusting your filters.
+                    </template>
+                    <template if:false={searchTerm}>
+                        Get started by creating your first order.
+                    </template>
+                </p>
+            </div>
+        </template>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <lightning-spinner 
+                alternative-text="Loading orders..." 
+                size="medium">
+            </lightning-spinner>
+        </template>
+    </lightning-card>
+
+    <!-- Order Details Modal -->
+    <template if:true={showOrderDetails}>
+        <c-order-details 
+            order-id={selectedOrderId}
+            onclose={handleCloseOrderDetails}
+            onsave={handleOrderSaved}>
+        </c-order-details>
+    </template>
+
+    <!-- New Order Modal -->
+    <template if:true={showNewOrderModal}>
+        <c-order-details 
+            onclose={handleCloseNewOrder}
+            onsave={handleOrderSaved}>
+        </c-order-details>
+    </template>
+</template>

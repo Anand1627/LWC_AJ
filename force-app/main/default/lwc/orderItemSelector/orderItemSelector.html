@@ -1,0 +1,200 @@
+<template>
+    <!-- Modal -->
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container">
+            <!-- Modal Header -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                        title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-modal__title slds-hyphenate">Add Order Item</h2>
+            </header>
+
+            <!-- Modal Body -->
+            <div class="slds-modal__content slds-p-around_medium">
+                
+                <!-- Product Selection -->
+                <div class="slds-form-element slds-m-bottom_medium">
+                    <label class="slds-form-element__label">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        Product
+                    </label>
+                    <div class="slds-form-element__control">
+                        
+                        <!-- Selected Product Display -->
+                        <template if:true={selectedProduct}>
+                            <div class="selected-product-card">
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon icon-name="standard:product" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h3 class="slds-text-heading_small">{selectedProduct.Name}</h3>
+                                        <template if:true={selectedProduct.ProductCode__c}>
+                                            <p class="slds-text-body_small slds-text-color_weak">
+                                                Code: {selectedProduct.ProductCode__c}
+                                            </p>
+                                        </template>
+                                        <template if:true={selectedProduct.Description__c}>
+                                            <p class="slds-text-body_small slds-m-top_x-small">
+                                                {selectedProduct.Description__c}
+                                            </p>
+                                        </template>
+                                    </div>
+                                    <div class="slds-media__figure slds-media__figure_reverse">
+                                        <lightning-button-icon
+                                            icon-name="utility:clear"
+                                            variant="border-filled"
+                                            alternative-text="Clear selection"
+                                            title="Clear selection"
+                                            onclick={handleClearProduct}>
+                                        </lightning-button-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Product Search and List -->
+                        <template if:false={selectedProduct}>
+                            <lightning-input
+                                type="search"
+                                label="Search Products"
+                                placeholder="Search by name, code, or description..."
+                                value={searchTerm}
+                                onchange={handleSearch}
+                                variant="label-hidden">
+                            </lightning-input>
+
+                            <div class="product-list slds-m-top_small">
+                                <template if:true={hasProducts}>
+                                    <div class="slds-scrollable_y" style="height: 200px;">
+                                        <ul class="slds-has-dividers_around-space">
+                                            <template for:each={filteredProducts} for:item="product">
+                                                <li key={product.Id} class="slds-item">
+                                                    <div class="slds-tile slds-tile_board slds-m-horizontal_small product-item"
+                                                         data-product-id={product.Id}
+                                                         onclick={handleProductSelect}>
+                                                        <div class="slds-tile__detail">
+                                                            <div class="slds-media">
+                                                                <div class="slds-media__figure">
+                                                                    <lightning-icon 
+                                                                        icon-name="standard:product" 
+                                                                        size="small">
+                                                                    </lightning-icon>
+                                                                </div>
+                                                                <div class="slds-media__body">
+                                                                    <h3 class="slds-tile__title slds-truncate">
+                                                                        {product.Name}
+                                                                    </h3>
+                                                                    <template if:true={product.ProductCode__c}>
+                                                                        <div class="slds-tile__detail slds-text-body_small">
+                                                                            Code: {product.ProductCode__c}
+                                                                        </div>
+                                                                    </template>
+                                                                    <template if:true={product.UnitPrice__c}>
+                                                                        <div class="slds-tile__detail slds-text-body_small">
+                                                                            Price: 
+                                                                            <lightning-formatted-number
+                                                                                value={product.UnitPrice__c}
+                                                                                format-style="currency"
+                                                                                currency-code="USD">
+                                                                            </lightning-formatted-number>
+                                                                        </div>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+
+                                <template if:false={hasProducts}>
+                                    <div class="slds-text-align_center slds-p-around_medium">
+                                        <lightning-icon 
+                                            icon-name="standard:product" 
+                                            size="large" 
+                                            class="slds-m-bottom_small">
+                                        </lightning-icon>
+                                        <h3 class="slds-text-heading_small">No Products Found</h3>
+                                        <p class="slds-text-body_regular slds-text-color_weak">
+                                            <template if:true={searchTerm}>
+                                                No products match your search criteria.
+                                            </template>
+                                            <template if:false={searchTerm}>
+                                                No products available.
+                                            </template>
+                                        </p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Item Details (shown when product is selected) -->
+                <template if:true={selectedProduct}>
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Quantity -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <lightning-input
+                                type="number"
+                                label="Quantity"
+                                value={quantity}
+                                onchange={handleQuantityChange}
+                                min="1"
+                                step="1"
+                                required>
+                            </lightning-input>
+                        </div>
+
+                        <!-- Unit Price -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <lightning-input
+                                type="number"
+                                label="Unit Price"
+                                value={unitPrice}
+                                onchange={handleUnitPriceChange}
+                                min="0"
+                                step="0.01"
+                                formatter="currency"
+                                required>
+                            </lightning-input>
+                        </div>
+
+                        <!-- Line Total -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Line Total</label>
+                                <div class="slds-form-element__control">
+                                    <div class="line-total-display">
+                                        {formattedLineTotal}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Modal Footer -->
+            <footer class="slds-modal__footer">
+                <lightning-button 
+                    label="Cancel" 
+                    onclick={handleClose}>
+                </lightning-button>
+                <lightning-button 
+                    label="Add Item" 
+                    variant="brand" 
+                    onclick={handleAddItem}
+                    disabled={isAddDisabled}>
+                </lightning-button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

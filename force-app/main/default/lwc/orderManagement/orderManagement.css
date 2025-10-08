@@ -1,0 +1,117 @@
+.order-management-container {
+    background: #fafaf9;
+    min-height: 100vh;
+}
+
+.filters-section {
+    background: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-draft {
+    background-color: #f3f3f2;
+    color: #706e6b;
+}
+
+.status-confirmed {
+    background-color: #d9f7be;
+    color: #389e0d;
+}
+
+.status-processing {
+    background-color: #e6f7ff;
+    color: #1890ff;
+}
+
+.status-shipped {
+    background-color: #fff2e8;
+    color: #fa8c16;
+}
+
+.status-delivered {
+    background-color: #f6ffed;
+    color: #52c41a;
+}
+
+.status-cancelled {
+    background-color: #fff2f0;
+    color: #ff4d4f;
+}
+
+.order-summary-card {
+    border-left: 4px solid #1589ee;
+}
+
+.metric-item {
+    text-align: center;
+    padding: 1rem;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: #706e6b;
+    margin-top: 0.25rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.search-section {
+    margin-bottom: 1rem;
+}
+
+.table-container {
+    background: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state-icon {
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.loading-overlay {
+    position: relative;
+}
+
+.slds-text-color_success {
+    color: #04844b !important;
+}
+
+.slds-text-color_error {
+    color: #c23934 !important;
+}
+
+.slds-text-color_brand {
+    color: #1589ee !important;
+}
+
+.slds-text-color_weak {
+    color: #706e6b !important;
+}
