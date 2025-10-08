@@ -1,0 +1,78 @@
+/* Custom styling for the name card display component */
+
+/* Add hover effect to the name items in list view */
+.name-item:hover {
+    background-color: #f4f6f9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Add some spacing and styling to the cards */
+lightning-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+lightning-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Style the department and title text */
+.slds-text-body_regular {
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Add animation for card entrance */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slds-col {
+    animation: slideIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Stagger the animation for each card */
+.slds-col:nth-child(1) { animation-delay: 0.1s; }
+.slds-col:nth-child(2) { animation-delay: 0.2s; }
+.slds-col:nth-child(3) { animation-delay: 0.3s; }
+.slds-col:nth-child(4) { animation-delay: 0.4s; }
+.slds-col:nth-child(5) { animation-delay: 0.5s; }
+.slds-col:nth-child(6) { animation-delay: 0.6s; }
+.slds-col:nth-child(7) { animation-delay: 0.7s; }
+.slds-col:nth-child(8) { animation-delay: 0.8s; }
+.slds-col:nth-child(9) { animation-delay: 0.9s; }
+.slds-col:nth-child(10) { animation-delay: 1.0s; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slds-col {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Style the email links */
+lightning-formatted-email {
+    color: #0070d2;
+    text-decoration: none;
+}
+
+lightning-formatted-email:hover {
+    text-decoration: underline;
+}
+
+/* Add a subtle background pattern to the main card */
+.slds-m-around_medium {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 8px;
+    padding: 1.5rem;
+}

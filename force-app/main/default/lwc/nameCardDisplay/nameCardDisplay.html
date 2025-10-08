@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="Names Display" icon-name="standard:user">
+        <div class="slds-m-around_medium">
+            <!-- Display names in a grid layout -->
+            <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={names} for:item="person">
+                    <div key={person.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+                        <!-- Individual card for each person -->
+                        <lightning-card variant="narrow">
+                            <div slot="title">
+                                <lightning-icon icon-name="standard:avatar" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                {person.name}
+                            </div>
+                            <div class="slds-p-horizontal_small">
+                                <p class="slds-text-body_regular">
+                                    <strong>Title:</strong> {person.title}
+                                </p>
+                                <p class="slds-text-body_regular">
+                                    <strong>Department:</strong> {person.department}
+                                </p>
+                                <p class="slds-text-body_regular">
+                                    <strong>Email:</strong> 
+                                    <lightning-formatted-email value={person.email}></lightning-formatted-email>
+                                </p>
+                            </div>
+                            <div slot="footer">
+                                <lightning-button 
+                                    label="View Details" 
+                                    variant="neutral" 
+                                    onclick={handleViewDetails}
+                                    data-id={person.id}
+                                    class="slds-m-right_x-small">
+                                </lightning-button>
+                            </div>
+                        </lightning-card>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Alternative simple list view -->
+            <div class="slds-m-top_large">
+                <h3 class="slds-text-heading_small slds-m-bottom_medium">Simple List View</h3>
+                <ul class="slds-list_dotted">
+                    <template for:each={names} for:item="person">
+                        <li key={person.id} class="slds-p-around_x-small name-item">
+                            <span class="slds-text-body_regular">
+                                <strong>{person.name}</strong> - {person.title}
+                            </span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </lightning-card>
+</template>
