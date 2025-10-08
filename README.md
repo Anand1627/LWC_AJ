@@ -1,4 +1,10 @@
 # Salesforce DX Project: Next Steps
+## Quote status automation
+
+When a new `ServiceContract` is created from a `Quote`, the `Quote` status is automatically set to `SENT TO ERP` via `ServiceContractTrigger` and `ServiceContractTriggerHandler`.
+
+Admin prerequisite: Ensure the `Quote.Status` picklist contains an active value `SENT TO ERP` available for the relevant record types.
+
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
 
