@@ -1,15 +1,19 @@
 <template>
-    <lightning-card title="Student Details">
+  <lightning-card title="Student Details">
     <div class="slds-box-medium">
-        <template for:each={Student} for:item="studentObj" for:index="currentIndex">
-            <div key = {studentObj.currentIndex}>
-                <div class="slds-box">
-                    SNo           :{currentIndex}<br>
-                    Student Name  : {studentObj.Named}<br>
-                    Steudent Mark : {studentObj.Mark}
-                </div>
-            </div>
-        </template>
+      <template
+        for:each={Student}
+        for:item="studentObj"
+        for:index="currentIndex"
+      >
+        <div key={studentObj.Name}>
+          <div class="slds-box">
+            SNo :{currentIndex}<br />
+            Student Name : {studentObj.Name}<br />
+            Student Mark : {studentObj.Mark}
+          </div>
+        </div>
+      </template>
     </div>
-    </lightning-card>
+  </lightning-card>
 </template>

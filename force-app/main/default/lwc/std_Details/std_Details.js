@@ -1,21 +1,18 @@
-import { LightningElement } from 'lwc';
+import { LightningElement } from "lwc";
 
 export default class Std_Details extends LightningElement {
-
-Student=[
-    {        
-        Named : "Shasvatashrie",
-        Mark  : 85
-},
-{           
-        Named : "Anand",
-        Mark  : 78
-},
-{
-       
-        Named : "Ashwini",
-        Mark  : 80
-}
-];
-
+  Student = [
+    {
+      Name: "Shasvatashrie",
+      Mark: 85
+    },
+    {
+      Name: "Anand",
+      Mark: 78
+    },
+    {
+      Name: "Ashwini",
+      Mark: 80
+    }
+  ];
 }
